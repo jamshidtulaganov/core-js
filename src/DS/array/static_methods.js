@@ -65,3 +65,20 @@ Array.fromAsync(asyncIterable).then((array) => console.log(array));
 // [0, 1, 2, 3, 4]
 
 /*---------------------------------------- Array.isArray() ---------------------------------*/
+// define is instance of Array object
+
+Array.isArray([1]); // true
+Array.isArray(1); //false
+
+// Array.isArray() vs instanceof Array
+
+// When checking for Array instance,
+// Array.isArray() is preferred over instanceof because it works across realms.
+
+// In the main context
+const iframe = document.createElement("iframe");
+document.body.appendChild(iframe);
+const iframeArray = iframe.contentWindow.Array.from([1, 2, 3]);
+
+console.log(iframeArray instanceof Array); // false in some environments
+console.log(Array.isArray(iframeArray)); // true
