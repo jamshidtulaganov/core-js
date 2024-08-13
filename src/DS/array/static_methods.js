@@ -54,15 +54,15 @@ console.log([1, , 2]);
 
 // generators
 
-const asyncIterable = (async function* () {
-	for (let i = 0; i < 5; i++) {
-		await new Promise((resolve) => setTimeout(resolve, 10 * i));
-		yield i;
-	}
-})();
+// const asyncIterable = (async function* () {
+// 	for (let i = 0; i < 5; i++) {
+// 		await new Promise((resolve) => setTimeout(resolve, 10 * i));
+// 		yield i;
+// 	}
+// })();
 
-Array.fromAsync(asyncIterable).then((array) => console.log(array));
-// [0, 1, 2, 3, 4]
+// Array.fromAsync(asyncIterable).then((array) => console.log(array));
+// // [0, 1, 2, 3, 4]
 
 /*---------------------------------------- Array.isArray() ---------------------------------*/
 // define is instance of Array object
@@ -76,9 +76,27 @@ Array.isArray(1); //false
 // Array.isArray() is preferred over instanceof because it works across realms.
 
 // In the main context
-const iframe = document.createElement("iframe");
-document.body.appendChild(iframe);
-const iframeArray = iframe.contentWindow.Array.from([1, 2, 3]);
+// const iframe = document.createElement("iframe");
+// document.body.appendChild(iframe);
 
-console.log(iframeArray instanceof Array); // false in some environments
-console.log(Array.isArray(iframeArray)); // true
+// // iframe context
+// const iframeArray = iframe.contentWindow.Array.from([1, 2, 3]);
+// console.log(iframeArray instanceof Array); // false in some environments
+// console.log(Array.isArray(iframeArray)); // true
+
+/*----------------------------------------------------- Array.of() ------------------------------------------- */
+
+console.log(Array.of(1, 2, 3));
+
+class NotAnArray {
+	constructor(length) {
+		this.length = length - 10;
+	}
+}
+
+const arr = [0, 1, 2];
+arr.constructor = { [Symbol.species]: NotAnArray };
+
+console.log(arr, arr.length);
+
+// arr.map((i) => console.log(i)); // NotAnArray { '0': 0, '1': 1, '2': 2, length: 3 }
