@@ -75,3 +75,29 @@ const firstElement = [1, 2, 3, 4].at(0);
 //     return num > arr[idx - 1];
 //   });
 // console.log(isIncreasing); // true
+
+/*------------------------ some(callbackFn, thisArg) ----------------------  */
+
+//#1 return Boolean for condition
+// const arr = new Array(5);
+
+// const greaterThanTen = arr.some((i) => console.log(i));
+
+// console.log(greaterThanTen);
+
+// when some() iterate this sparse array this part not invoked
+// console.log([1, , 3].some((x) => x === undefined)); // false
+// console.log([1, , 1].some((x) => x !== 1)); // false
+// console.log([1, undefined, 1].some((x) => x !== 1)); // true
+
+//##### calling some() non-array objects ###
+
+// const arrayLike = {
+// 	0: "a",
+// 	1: "b",
+// 	2: "a",
+// 	3: 3,
+// 	length: 3, // ignored by some() since length is 3 cause is considiration by length
+// };
+// console.log(Array.prototype.some.call(arrayLike, (x) => typeof x === "number"));
+// // false
