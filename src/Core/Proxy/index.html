@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Simple Reactive System</title>
+	</head>
+	<body>
+		<div id="app">
+			<p>Count: <span id="count"></span></p>
+			<button id="increment">Increment</button>
+		</div>
+
+		<!-- <script>
+			// Dependency tracker
+			let activeEffect = null;
+
+			// Store the effect (a function) to run when the property is accessed
+			function effect(fn) {
+				activeEffect = fn;
+				fn(); // Run the function for the first time to capture dependencies
+				activeEffect = null;
+			}
+
+			// Dependency Map to track which properties depend on which functions
+			const depMap = new Map();
+
+			// Track dependencies when a property is accessed
+			function track(target, key) {
+				if (!activeEffect) return;
+
+				if (!depMap.has(target)) {
+					depMap.set(target, new Map());
+				}
+
+				let deps = depMap.get(target);
+				if (!deps.has(key)) {
+					deps.set(key, new Set());
+				}
+
+				deps.get(key).add(activeEffect);
+			}
+
+			// Trigger effects when the property changes
+			function trigger(target, key) {
+				if (!depMap.has(target)) return;
+
+				const deps = depMap.get(target).get(key);
+				if (deps) {
+					deps.forEach((fn) => fn()); // Re-run each function dependent on this property
+				}
+			}
+
+			// Create the reactive proxy
+			function reactive(target) {
+				return new Proxy(target, {
+					get(obj, prop) {
+						track(obj, prop); // Track dependencies
+						return obj[prop];
+					},
+					set(obj, prop, value) {
+						obj[prop] = value;
+						trigger(obj, prop); // Trigger reactions when a property is set
+						return true;
+					},
+				});
+			}
+
+			// Reactive data object
+			const state = reactive({ count: 0 });
+
+			// HTML elements
+			const countEl = document.getElementById("count");
+			const incrementBtn = document.getElementById("increment");
+
+			// Effect to automatically update the DOM when state changes
+			effect(() => {
+				countEl.innerText = state.count; // Reactive update
+			});
+
+			// Increment button listener to change state
+			incrementBtn.addEventListener("click", () => {
+				state.count++; // Updates the state, triggers the effect
+			});
+		</script> -->
+
+		<script>
+			async function get() {
+				const res1 = await fetch(
+					"https://jsonplaceholder.typicode.com/todos/1"
+				);
+				const res2 = await fetch(
+					"https://jsonplaceholder.typicode.com/todos/2"
+				);
+			}
+
+			get();
+		</script>
+	</body>
+</html>
